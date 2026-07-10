@@ -1,0 +1,5 @@
+aizen_vpc_id = "vpc-0888b2187c6eabaec"
+aizen_subnet_id = "subnet-058571c2a9aaaeb2e"
+aizen_sg_id = "sg-0d1292ee4238a02c8"
+aizen_ami_id = "ami-06067086cf86c58e6"
+aizen_instance_type = "t2.micro"
