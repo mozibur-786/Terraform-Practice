@@ -39,7 +39,7 @@ resource "aws_vpc" "my_vpc" {
     instance_class        = "db.t3.micro"
     username              = "admin"
     #manage_master_user_password = true # rds ans secret manager will manage the password
-    password              = "rohit123"
+    password              = "rohit123"  # aws doesnot allow to create read replica when password is managed by secret manager
     db_subnet_group_name = aws_db_subnet_group.my_subnet_group.name
     parameter_group_name  = "default.mysql8.0"
 
