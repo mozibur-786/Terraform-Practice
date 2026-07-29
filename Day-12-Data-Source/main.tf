@@ -32,7 +32,7 @@ data "aws_ami" "amazon_linux" {
 resource "aws_instance" "example" {
   ami           = data.aws_ami.amazon_linux.id
   subnet_id = data.aws_subnet.name.id
-  instance_type = "t2.micro"
+  instance_type = "t2.medium"
 
   tags = {
     Name = "aizen-ec2"
