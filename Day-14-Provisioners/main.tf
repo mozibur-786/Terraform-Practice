@@ -131,13 +131,13 @@ resource "null_resource" "run_script" {
         }
 
         inline = [ 
-            "echo 'hello from rohit' >> /home/ubuntu/file20"
+            "echo 'hello from aizen' >> /home/ubuntu/file20"
          ]
       
     }
 
-    # triggers = {
-    #      always_run = "${timestamp()}"   # forces rerun everytime
-    #  }
+    triggers = {
+         always_run = "${timestamp()}"   # forces rerun everytime
+     }
   
 }
