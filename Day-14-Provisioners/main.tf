@@ -94,29 +94,50 @@ resource "aws_instance" "my_ec2" {
       Name = "ubuntu server"
     }
 
-    connection {
-      type = "ssh"
-      user = "ubuntu"
-      private_key = file("~/.ssh/id_rsa")
-      host = self.public_ip
-      timeout = "2m"
-    }
+    # connection {
+    #   type = "ssh"
+    #   user = "ubuntu"
+    #   private_key = file("~/.ssh/id_rsa")
+    #   host = self.public_ip
+    #   timeout = "2m"
+    # }
 
-    provisioner "file" {
-        source = "file10"
-        destination = "/home/ubuntu/file10"
-    }
+    # provisioner "file" {
+    #     source = "file10"
+    #     destination = "/home/ubuntu/file10"
+    # }
 
+    # provisioner "remote-exec" {
+    #     inline = [ 
+    #         "touch /home/ubuntu/file200",
+    #         "echo 'hello from rohit' >> /home/ubuntu/file200"
+    #      ]
+    # }
+
+    # provisioner "local-exec" {
+    #     command = "touch file500"
+      
+    # }
+
+}
+
+# null resource
+resource "null_resource" "run_script" {
     provisioner "remote-exec" {
-        inline = [ 
-            "touch /home/ubuntu/file200",
-            "echo 'hello from rohit' >> /home/ubuntu/file200"
-         ]
-    }
+        connection {
+          host = aws_instance.my_ec2.public_ip
+          user = "ubuntu"
+          private_key = file("~/.ssh/id_rsa")
+        }
 
-    provisioner "local-exec" {
-        command = "touch file500"
+        inline = [ 
+            "echo 'hello from rohit' >> /home/ubuntu/file20"
+         ]
       
     }
 
+    # triggers = {
+    #      always_run = "${timestamp()}"   # forces rerun everytime
+    #  }
+  
 }
