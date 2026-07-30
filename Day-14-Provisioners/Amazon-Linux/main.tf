@@ -82,21 +82,21 @@ resource "aws_security_group" "my_sg" {
     }
 }
 
-# ec2 instance (ubuntu)
+# ec2 instance (amazon linux)
 resource "aws_instance" "my_ec2" {
-    ami                         = var.ami_id   # ubuntu ami
+    ami                         = var.ami_id   # amazon linux ami
     instance_type               = var.instance_type
     key_name = aws_key_pair.my_key.key_name
     subnet_id                   = aws_subnet.my_subnet.id
     vpc_security_group_ids      = [aws_security_group.my_sg.id]
     associate_public_ip_address = true
     tags = {
-      Name = "ubuntu server"
+      Name = "amazon linux server"
     }
 
     # connection {
     #   type = "ssh"
-    #   user = "ubuntu"
+    #   user = "ec2-user"
     #   private_key = file("~/.ssh/id_rsa")
     #   host = self.public_ip
     #   timeout = "2m"
@@ -104,13 +104,13 @@ resource "aws_instance" "my_ec2" {
 
     # provisioner "file" {
     #     source = "file10"
-    #     destination = "/home/ubuntu/file10"
+    #     destination = "/home/ec2-user/file10"
     # }
 
     # provisioner "remote-exec" {
     #     inline = [ 
-    #         "touch /home/ubuntu/file200",
-    #         "echo 'hello from rohit' >> /home/ubuntu/file200"
+    #         "touch /home/ec2-user/file200",
+    #         "echo 'hello from rohit' >> /home/ec2-user/file200"
     #      ]
     # }
 
@@ -126,12 +126,12 @@ resource "null_resource" "run_script" {
     provisioner "remote-exec" {
         connection {
           host = aws_instance.my_ec2.public_ip
-          user = "ubuntu"
+          user = "ec2-user"
           private_key = file("~/.ssh/id_rsa")
         }
 
         inline = [ 
-            "echo 'hello from rohit' >> /home/ubuntu/file20"
+            "echo 'hello from rohit' >> /home/ec2-user/file20"
          ]
       
     }
