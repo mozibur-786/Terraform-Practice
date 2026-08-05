@@ -7,3 +7,15 @@ resource "aws_instance" "name" {
     }
   
 }
+
+resource "aws_s3_bucket" "name" {
+    bucket = "rohit-test-buck"
+  
+}
+resource "aws_s3_bucket_versioning" "name" {
+    bucket = aws_s3_bucket.name.bucket
+    versioning_configuration {
+      status = "Enabled"
+    }
+  
+}
